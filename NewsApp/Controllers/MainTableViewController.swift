@@ -95,7 +95,7 @@ class MainTableViewController: UITableViewController {
                 arrays.arrayOfViewed.append(resultsFromData[i].viewed)
             }
         }
-        print("---\n\(resultsFromData)\n---")
+//        print("---\n\(resultsFromData)\n---")
         print(arrays.arrayOfViewed)
         print("arrays Updated")
         tableView.reloadData()
