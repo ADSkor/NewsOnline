@@ -25,7 +25,7 @@ class NewsObject: Object {
 }
 
 
-// MARK: - Class for upload
+// MARK: - Class for upload to Realm
 
 class UploadToDB {
     
@@ -74,7 +74,7 @@ class UploadToDB {
     }
 }
 
-//MARK: - Class for download
+//MARK: - Class for download from Realm
 
 class DownloadData {
     

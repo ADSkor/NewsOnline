@@ -16,7 +16,7 @@ class Network: UIViewController {
     
     //Allias
     let realm = try! Realm()
-    let upload = Upload()
+    let upload = UploadToDB()
     
     func getDataFromNewsPortal(stringFromSearchButton: String) {
         
@@ -25,10 +25,9 @@ class Network: UIViewController {
                 
                 let dataJSON : JSON = JSON(response.result.value!)
 //                print(dataJSON)
-                self.upload.uploadData(json: dataJSON)
+                self.upload.uploadDataToRealm(json: dataJSON)
             } else {
                 print("Error: \(String(describing: response.result.error))")
-                SVProgressHUD.dismiss()
                 let alert = UIAlertController(title: "Network Issue", message: "Возникли проблемы: Нет связи с сервером", preferredStyle: .alert)
                 alert.addAction(UIAlertAction(title: "Ок", style: .default) { (alertAction) in })
                 UIApplication.shared.keyWindow?.rootViewController?.present(alert, animated: true, completion: nil)
