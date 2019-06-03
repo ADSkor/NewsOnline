@@ -99,18 +99,19 @@ class MainTableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cellsFromMainTable", for: indexPath)
+        let sortedResults = resultsOfFound?.sorted(byKeyPath: "published_at")
         
         //Load Image from Url
         var imageV = UIImageView()
         imageV = cell.viewWithTag(1) as! UIImageView
-        imageV.sd_setImage(with: URL(string: (self.resultsOfFound?[indexPath.row].urlOfImage)!), placeholderImage: UIImage(named: "NewsImg"))
+        imageV.sd_setImage(with: URL(string: (sortedResults?[indexPath.row].urlOfImage)!), placeholderImage: UIImage(named: "NewsImg"))
         
         //Load Titles from titleOf
         let titleLabel = cell.viewWithTag(3) as! UILabel
-        titleLabel.text = self.resultsOfFound?[indexPath.row].titleOf
+        titleLabel.text = sortedResults?[indexPath.row].titleOf
         
         //Load Viewed Bool for "Seen" image
-        if self.resultsOfFound?[indexPath.row].viewed == true {
+        if sortedResults?[indexPath.row].viewed == true {
             var imageV = UIImageView()
             imageV = cell.viewWithTag(2) as! UIImageView
             imageV.isHidden = false
@@ -133,7 +134,9 @@ class MainTableViewController: UITableViewController {
             
             var indexPath = self.tableView.indexPathForSelectedRow
             
-            let item = resultsOfFound![(indexPath?.row)!]
+            let reversedItem = resultsOfFound?.sorted(byKeyPath: "published_at")
+            
+            let item = reversedItem![(indexPath?.row)!]
             
             //Обновление статуса прочтения, запись и отображение
             do {

@@ -39,7 +39,7 @@ class UploadToDB {
                 let item = NewsObject()
                 item.titleOf = json["articles"][i]["title"].stringValue
                 let fullDate = json["articles"][i]["publishedAt"].stringValue
-                let endIndex = fullDate.index(fullDate.endIndex, offsetBy: -4)
+                let endIndex = fullDate.index(fullDate.startIndex, offsetBy: 16)
                 item.published_at = String(fullDate[..<endIndex])
                 item.descriptionOf = json["articles"][i]["description"].stringValue
                 item.urlOfImage = json["articles"][i]["urlToImage"].stringValue
