@@ -16,7 +16,7 @@ import SDWebImage
 class MainTableViewController: UITableViewController {
     
     //Allias
-    let serchAdress: String = "https://newsapi.org/v2/everything?q="
+    let serchAdress: String = "https://newsapi.org/v2/top-headlines?q="
     var searchName: String = "Hot News"
     let api: String = "&sortBy=publishedAt&language=en&apiKey=b59bc1f13f884301a259ebc4a7c68af2"
     let realm = try! Realm()
@@ -30,7 +30,7 @@ class MainTableViewController: UITableViewController {
         tableView.dataSource = self
         tableView.delegate = self
         navigationItem.title = searchName
-//        print(Realm.Configuration.defaultConfiguration.fileURL!)
+        print(Realm.Configuration.defaultConfiguration.fileURL!)
         
     }
     
