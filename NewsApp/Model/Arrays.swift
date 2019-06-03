@@ -8,22 +8,22 @@
 
 import Foundation
 
-class ArraysForMainTable {
-    var arrayOfTitles : [String] = []
-    var arrayOfImgUrls : [String] = []
-    var arrayOfPublished : [String] = []
-    var arrayOfDescription : [String] = []
-    var arrayOfUrlNews : [String] = []
-    var arrayOfViewed : [Bool] = []
-}
-
-class ItemsForMainScreen {
-    
-    var title: String = ""
-    var imgUrl: String = ""
-    var published_at: String = ""
-    var description: String = ""
-    var url: String = ""
-    var bool: Bool = false
-    
-}
+//class ArraysForMainTable {
+//    var arrayOfTitles : [String] = []
+//    var arrayOfImgUrls : [String] = []
+//    var arrayOfPublished : [String] = []
+//    var arrayOfDescription : [String] = []
+//    var arrayOfUrlNews : [String] = []
+//    var arrayOfViewed : [Bool] = []
+//}
+//
+//class ItemsForMainScreen {
+//    
+//    var title: String = ""
+//    var imgUrl: String = ""
+//    var published_at: String = ""
+//    var description: String = ""
+//    var url: String = ""
+//    var bool: Bool = false
+//    
+//}

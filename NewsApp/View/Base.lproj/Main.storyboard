@@ -142,31 +142,27 @@
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="Url Of That News" translatesAutoresizingMaskIntoConstraints="NO" id="SYu-jA-bmI">
-                                                <rect key="frame" x="8" y="325.5" width="359" height="50"/>
-                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="height" constant="50" id="YCn-2h-WiA"/>
-                                                </constraints>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="urlOfNews" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xSS-nw-Xz8">
+                                                <rect key="frame" x="8" y="325.5" width="359" height="18"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                 <color key="textColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
-                                            </textView>
+                                                <nil key="highlightedColor"/>
+                                            </label>
                                         </subviews>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
                                             <constraint firstItem="WJq-aH-Qvo" firstAttribute="leading" secondItem="CWk-Yc-wLB" secondAttribute="leading" constant="16" id="19K-ac-ygN"/>
+                                            <constraint firstAttribute="trailing" secondItem="xSS-nw-Xz8" secondAttribute="trailing" constant="8" id="2T4-TX-u7C"/>
                                             <constraint firstItem="Acv-jX-yYY" firstAttribute="top" secondItem="CWk-Yc-wLB" secondAttribute="top" constant="8" id="4Dv-Pg-abm"/>
-                                            <constraint firstItem="SYu-jA-bmI" firstAttribute="leading" secondItem="CWk-Yc-wLB" secondAttribute="leading" constant="8" id="7wM-ax-6ea"/>
                                             <constraint firstItem="WJq-aH-Qvo" firstAttribute="top" secondItem="Acv-jX-yYY" secondAttribute="bottom" constant="8" id="8TS-0j-IZ5"/>
+                                            <constraint firstItem="xSS-nw-Xz8" firstAttribute="leading" secondItem="CWk-Yc-wLB" secondAttribute="leading" constant="8" id="9YQ-od-okV"/>
                                             <constraint firstAttribute="trailing" secondItem="WJq-aH-Qvo" secondAttribute="trailing" constant="16" id="EHq-fr-QCR"/>
                                             <constraint firstItem="nMQ-GU-wss" firstAttribute="leading" secondItem="CWk-Yc-wLB" secondAttribute="leading" constant="8" id="HFZ-TX-Iip"/>
                                             <constraint firstItem="nMQ-GU-wss" firstAttribute="top" secondItem="Mki-8J-RRE" secondAttribute="bottom" constant="8" id="NYM-Df-ZNo"/>
-                                            <constraint firstItem="SYu-jA-bmI" firstAttribute="top" secondItem="nMQ-GU-wss" secondAttribute="bottom" constant="8" id="XNi-20-jqo"/>
                                             <constraint firstAttribute="height" constant="1363" id="aDF-CJ-p6n"/>
                                             <constraint firstAttribute="trailing" secondItem="nMQ-GU-wss" secondAttribute="trailing" constant="8" id="hTn-8Q-NG8"/>
-                                            <constraint firstAttribute="trailing" secondItem="SYu-jA-bmI" secondAttribute="trailing" constant="8" id="knA-sp-21F"/>
                                             <constraint firstAttribute="trailing" secondItem="Acv-jX-yYY" secondAttribute="trailing" constant="8" id="nDE-PQ-jBQ"/>
+                                            <constraint firstItem="xSS-nw-Xz8" firstAttribute="top" secondItem="nMQ-GU-wss" secondAttribute="bottom" constant="8" id="vRe-Eo-fjV"/>
                                             <constraint firstItem="Mki-8J-RRE" firstAttribute="leading" secondItem="CWk-Yc-wLB" secondAttribute="leading" constant="8" id="wFA-kD-eHi"/>
                                             <constraint firstItem="Acv-jX-yYY" firstAttribute="leading" secondItem="CWk-Yc-wLB" secondAttribute="leading" constant="8" id="wwx-gD-Oyx"/>
                                             <constraint firstItem="Mki-8J-RRE" firstAttribute="top" secondItem="WJq-aH-Qvo" secondAttribute="bottom" constant="8" id="z5B-Ad-sEq"/>
@@ -197,7 +193,7 @@
                         <outlet property="imageFromUrl" destination="Acv-jX-yYY" id="fX3-TQ-T0n"/>
                         <outlet property="publishedDate" destination="Mki-8J-RRE" id="Nd9-11-ifo"/>
                         <outlet property="titleOfNews" destination="WJq-aH-Qvo" id="kV8-tz-lAv"/>
-                        <outlet property="urlOfNews" destination="SYu-jA-bmI" id="3Vi-Ag-ZkK"/>
+                        <outlet property="urlOfNews" destination="xSS-nw-Xz8" id="rbu-S4-350"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hLm-Sj-ln9" userLabel="First Responder" sceneMemberID="firstResponder"/>

@@ -24,7 +24,9 @@ class Network: UIViewController {
             if response.result.isSuccess {
                 
                 let dataJSON : JSON = JSON(response.result.value!)
-//                print(dataJSON)
+                
+                //загрузка новых данных в базу данных
+                
                 self.upload.uploadDataToRealm(json: dataJSON)
             } else {
                 print("Error: \(String(describing: response.result.error))")

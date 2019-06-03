@@ -21,9 +21,8 @@ class MainTableViewController: UITableViewController {
     let realm = try! Realm()
     let network = Network()
     let download = DownloadData()
-    let arrays = ArraysForMainTable()
     var resultsOfFound : Results<NewsObject>? = nil
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -34,14 +33,7 @@ class MainTableViewController: UITableViewController {
         
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(true)
-        
-        tableView.reloadData()
-        
-    }
-    
-    // MARK: - Buttons action
+    // MARK: - Button action
     //Search Button
     @IBAction func searchButtonPressed(_ sender: UIBarButtonItem) {
         
@@ -53,66 +45,54 @@ class MainTableViewController: UITableViewController {
         }
         
         alert.addAction (UIAlertAction(title: "Искать", style: .default) { (alertAction) in
-            SVProgressHUD.show()
             let textField = alert.textFields![0]
             self.searchName = textField.text!
+            self.resultsOfFound = nil
+            SVProgressHUD.show()
             
             if textField.text == "" {
                 let fullAddress = self.serchAdress + "q" + self.api
                 self.navigationItem.title = "All last News"
                 self.network.getDataFromNewsPortal(stringFromSearchButton: fullAddress)
                 self.resultsOfFound = self.download.loadData(fromSearchString: " ")
-                self.updateArrays(resultsFromData: self.resultsOfFound!)
+                DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(1), execute: {
+                    self.tableView.reloadData()
+                    SVProgressHUD.dismiss()
+                })
             } else {
                 let fullAddress = self.serchAdress + self.searchName + self.api
                 self.navigationItem.title = "News with: \(textField.text!)"
                 self.network.getDataFromNewsPortal(stringFromSearchButton: fullAddress)
                 self.resultsOfFound = self.download.loadData(fromSearchString: self.searchName)
-                self.updateArrays(resultsFromData: self.resultsOfFound!)
+                DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(1), execute: {
+                    self.tableView.reloadData()
+                    print(self.resultsOfFound!)
+                    SVProgressHUD.dismiss()
+                })
             }
-            
         })
         
         alert.addAction(UIAlertAction(title: "Отмена", style: .cancel) { (alertAction) in })
         
         self.present(alert, animated:true, completion: nil)
-        
     }
     
     
-
+    
     // MARK: - Table view data source
-
-    func updateArrays(resultsFromData: Results<NewsObject>) {
-        clearArrays()
-        if resultsFromData.count > 0 {
-            for i in 0...resultsFromData.count - 1 {
-                arrays.arrayOfDescription.append(resultsFromData[i].descriptionOf)
-                arrays.arrayOfTitles.append(resultsFromData[i].titleOf)
-                arrays.arrayOfPublished.append(resultsFromData[i].published_at)
-                arrays.arrayOfUrlNews.append(resultsFromData[i].urlOfNews)
-                arrays.arrayOfImgUrls.append(resultsFromData[i].urlOfImage)
-                arrays.arrayOfViewed.append(resultsFromData[i].viewed)
-            }
-        }
-//        print("---\n\(resultsFromData)\n---")
-        print(arrays.arrayOfViewed)
-        print("arrays Updated")
-        tableView.reloadData()
-        SVProgressHUD.dismiss()
-    }
-    
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return arrays.arrayOfTitles.count
+        return resultsOfFound?.count ?? 0
     }
-
+    
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cellsFromMainTable", for: indexPath)
+        
         //Load Image from Url
-        if self.arrays.arrayOfImgUrls[indexPath.row] != String([]) {
-            if let pictureURL = URL(string: self.arrays.arrayOfImgUrls[indexPath.row]) {
+        
+        if self.resultsOfFound?[indexPath.row].urlOfImage != String([]) {
+            if let pictureURL = URL(string: (self.resultsOfFound?[indexPath.row].urlOfImage)!) {
                 if let pictureData = NSData(contentsOf: pictureURL as URL) {
                     let NewsPicture = UIImage(data: pictureData as Data)
                     var imageV = UIImageView()
@@ -129,23 +109,26 @@ class MainTableViewController: UITableViewController {
             imageV = cell.viewWithTag(1) as! UIImageView
             imageV.image = UIImage(named: "NewsImg")
         }
-        //Load Titles from Array
+        //Load Titles from titleOf
         let titleLabel = cell.viewWithTag(3) as! UILabel
-        titleLabel.text = self.arrays.arrayOfTitles[indexPath.row]
+        titleLabel.text = self.resultsOfFound?[indexPath.row].titleOf
         
-        //Load Viewed Bool
-        if arrays.arrayOfViewed[indexPath.row] == true {
+        //Load Viewed Bool for "Seen" image
+        if self.resultsOfFound?[indexPath.row].viewed == true {
             var imageV = UIImageView()
             imageV = cell.viewWithTag(2) as! UIImageView
-            
-//            imageV.isHidden = false
+            imageV.isHidden = false
+        } else {
+            var imageV = UIImageView()
+            imageV = cell.viewWithTag(2) as! UIImageView
+            imageV.isHidden = true
         }
         
         return cell
     }
-
+    
     // MARK: - Navigation
-
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
         if segue.identifier == "goToMoreInfo" {
@@ -154,62 +137,41 @@ class MainTableViewController: UITableViewController {
             
             var indexPath = self.tableView.indexPathForSelectedRow
             
-            let items = realm.objects(NewsObject.self)
+            let item = resultsOfFound![(indexPath?.row)!]
             
-            destinationVC.published = arrays.arrayOfPublished[((indexPath?.row)!)]
-            destinationVC.titleOf = arrays.arrayOfTitles[((indexPath?.row)!)]
-            destinationVC.urlOf = arrays.arrayOfUrlNews[((indexPath?.row)!)]
-            
-            //Ищем в данных новость соответсвующую той на которую переходим, чтобы не дублировать если она уже была загружена
-            if items.count > 0 {
-                for i in 0...items.count - 1 {
-                    if items[i].titleOf == destinationVC.titleOf {
-                        //тут изменяем Bool на true и записываем это в память(Заменят существующее значение)
-                        do {
-                            try realm.write {
-                                items[i].viewed = true
-                            }
-                        }
-                        catch {
-                            print("\n Проблема с записью данных в Realm: \(error) ---(после перехода на MoreInfo)--- \n")
-                        }
-                    }
+            //Обновление статуса прочтения, запись и отображение
+            do {
+                try realm.write {
+                    item.viewed = true
                 }
             }
+            catch {
+                print("\n Проблема с изменением данных(viewed) в Realm: \(error) ---(после перехода на MoreInfo)--- \n")
+            }
             
-//            arrays.arrayOfViewed[((indexPath?.row)!)] = true
+            let path = IndexPath(item: indexPath!.row, section: 0)
+            tableView.reloadRows(at: [path], with: .automatic)
             
-            if self.arrays.arrayOfDescription[indexPath!.row] != String([]) {
-                destinationVC.descriptionOf = arrays.arrayOfDescription[((indexPath?.row)!)]
+            destinationVC.titleOf = item.titleOf
+            destinationVC.published = item.published_at
+            destinationVC.urlOf = item.urlOfNews
+
+            //Если Description Пустой
+            if item.descriptionOf != String([]) {
+                destinationVC.descriptionOf = item.descriptionOf
             } else {
                 destinationVC.descriptionOf = "(Empty)"
             }
-        
-            if self.arrays.arrayOfImgUrls[indexPath!.row] != String([]) {
-                let pictureURL = URL(string: self.arrays.arrayOfImgUrls[indexPath!.row])!
+            
+            //Если отсутствует ссылка на image
+            if item.urlOfImage != String([]) {
+                let pictureURL = URL(string: item.urlOfImage)!
                 if NSData(contentsOf: pictureURL as URL) != nil {
-                    destinationVC.imageUrl = arrays.arrayOfImgUrls[((indexPath?.row)!)]
+                    destinationVC.imageUrl = item.urlOfImage
                 }
             } else {
                 destinationVC.imageUrl = "NewsImg"
             }
-            
-            
         }
-        
     }
-    
-    
-    // MARK: - Others
-    //Clear Arrays
-    func clearArrays() {
-        arrays.arrayOfDescription.removeAll()
-        arrays.arrayOfTitles.removeAll()
-        arrays.arrayOfPublished.removeAll()
-        arrays.arrayOfUrlNews.removeAll()
-        arrays.arrayOfImgUrls.removeAll()
-        arrays.arrayOfViewed.removeAll()
-    }
-    
-
 }
