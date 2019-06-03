@@ -67,7 +67,6 @@ class MainTableViewController: UITableViewController {
                 self.resultsOfFound = self.download.loadData(fromSearchString: self.searchName)
                 DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(1), execute: {
                     self.tableView.reloadData()
-                    print(self.resultsOfFound!)
                     SVProgressHUD.dismiss()
                 })
             }
@@ -92,8 +91,6 @@ class MainTableViewController: UITableViewController {
             self.present(alert, animated:true, completion: nil)
             return 0
         }
-        
-//        return resultsOfFound?.count ?? 0
     }
     
     
