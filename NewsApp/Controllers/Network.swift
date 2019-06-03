@@ -26,18 +26,14 @@ class Network: UIViewController {
                 let dataJSON : JSON = JSON(response.result.value!)
                 
                 //загрузка новых данных в базу данных
-                
                 self.upload.uploadDataToRealm(json: dataJSON)
             } else {
+                SVProgressHUD.dismiss()
                 print("Error: \(String(describing: response.result.error))")
-                let alert = UIAlertController(title: "Network Issue", message: "Возникли проблемы: Нет связи с сервером", preferredStyle: .alert)
+                let alert = UIAlertController(title: "Network Issue", message: "Возникли проблемы: Нет связи с сервером или введены некорректные данные", preferredStyle: .alert)
                 alert.addAction(UIAlertAction(title: "Ок", style: .default) { (alertAction) in })
                 UIApplication.shared.keyWindow?.rootViewController?.present(alert, animated: true, completion: nil)
-                
             }
-            
         }
-        
     }
-    
 }

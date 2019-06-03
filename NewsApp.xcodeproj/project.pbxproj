@@ -16,7 +16,6 @@
 		1EE7CDF722A1285500CDAD7B /* MainTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EE7CDF622A1285500CDAD7B /* MainTableViewController.swift */; };
 		1EE7CDFB22A1565E00CDAD7B /* Network.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EE7CDFA22A1565E00CDAD7B /* Network.swift */; };
 		1EE7CDFD22A175CF00CDAD7B /* DataProcessing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EE7CDFC22A175CF00CDAD7B /* DataProcessing.swift */; };
-		1EE7CE0022A1775300CDAD7B /* Arrays.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EE7CDFF22A1775300CDAD7B /* Arrays.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -31,7 +30,6 @@
 		1EE7CDF622A1285500CDAD7B /* MainTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTableViewController.swift; sourceTree = "<group>"; };
 		1EE7CDFA22A1565E00CDAD7B /* Network.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Network.swift; sourceTree = "<group>"; };
 		1EE7CDFC22A175CF00CDAD7B /* DataProcessing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataProcessing.swift; sourceTree = "<group>"; };
-		1EE7CDFF22A1775300CDAD7B /* Arrays.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Arrays.swift; sourceTree = "<group>"; };
 		A6758D32ED9DD852728DBA10 /* Pods-NewsApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NewsApp.debug.xcconfig"; path = "Pods/Target Support Files/Pods-NewsApp/Pods-NewsApp.debug.xcconfig"; sourceTree = "<group>"; };
 		DB7EA7F833F356F27D499C42 /* Pods_NewsApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_NewsApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -102,7 +100,6 @@
 			isa = PBXGroup;
 			children = (
 				1EE7CDFC22A175CF00CDAD7B /* DataProcessing.swift */,
-				1EE7CDFF22A1775300CDAD7B /* Arrays.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -247,7 +244,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				1EE7CDE722A127E400CDAD7B /* MoreInfoViewController.swift in Sources */,
-				1EE7CE0022A1775300CDAD7B /* Arrays.swift in Sources */,
 				1EE7CDFD22A175CF00CDAD7B /* DataProcessing.swift in Sources */,
 				1EE7CDF722A1285500CDAD7B /* MainTableViewController.swift in Sources */,
 				1EE7CDFB22A1565E00CDAD7B /* Network.swift in Sources */,

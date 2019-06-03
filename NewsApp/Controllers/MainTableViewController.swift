@@ -30,7 +30,7 @@ class MainTableViewController: UITableViewController {
         tableView.dataSource = self
         tableView.delegate = self
         navigationItem.title = searchName
-        print(Realm.Configuration.defaultConfiguration.fileURL!)
+//        print(Realm.Configuration.defaultConfiguration.fileURL!)
         
     }
     
@@ -83,7 +83,17 @@ class MainTableViewController: UITableViewController {
     // MARK: - Table view data source
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return resultsOfFound?.count ?? 0
+        
+        if resultsOfFound?.count ?? 0 > 0 {
+            return resultsOfFound!.count
+        } else {
+            let alert = UIAlertController(title: title, message: "Нет новостей для отображения", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "Ok", style: .cancel) { (alertAction) in })
+            self.present(alert, animated:true, completion: nil)
+            return 0
+        }
+        
+//        return resultsOfFound?.count ?? 0
     }
     
     
