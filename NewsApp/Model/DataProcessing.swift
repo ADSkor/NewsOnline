@@ -27,10 +27,11 @@ class NewsObject: Object {
 
 // MARK: - Class for upload
 
-class Upload {
+class UploadToDB {
+    
     let realm = try! Realm()
     
-    func uploadData(json: JSON) {
+    func uploadDataToRealm(json: JSON) {
         
         if json["totalResults"].stringValue != "0" {
             for i in 0...json["articles"].count - 1 {
@@ -39,8 +40,7 @@ class Upload {
                 item.titleOf = json["articles"][i]["title"].stringValue
                 let fullDate = json["articles"][i]["publishedAt"].stringValue
                 let endIndex = fullDate.index(fullDate.endIndex, offsetBy: -4)
-                let truncated = String(fullDate[..<endIndex])
-                item.published_at = truncated
+                item.published_at = String(fullDate[..<endIndex])
                 item.descriptionOf = json["articles"][i]["description"].stringValue
                 item.urlOfImage = json["articles"][i]["urlToImage"].stringValue
                 item.urlOfNews = json["articles"][i]["url"].stringValue
@@ -55,7 +55,7 @@ class Upload {
                     for i in 0...items.count - 1 {
                         if items[i].titleOf == item.titleOf {
                             tempValue = true
-                            print("Эта новость уже загружена: \(items[i].titleOf)")
+                            print("Эта новость уже загружена: \(items[i].titleOf), повторной загрузки не будет.")
                         }
                     }
                 }
@@ -81,7 +81,7 @@ class DownloadData {
     let realm = try! Realm()
     
     func loadData(fromSearchString: String) -> Results<NewsObject> {
-        return realm.objects(NewsObject.self).filter("descriptionOf contains '\(fromSearchString)'")
+        return realm.objects(NewsObject.self).filter("titleOf contains '\(fromSearchString)'")
     }
     
 }
