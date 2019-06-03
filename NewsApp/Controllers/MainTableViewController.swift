@@ -11,6 +11,7 @@ import RealmSwift
 import Realm
 import SVProgressHUD
 import Alamofire
+import SDWebImage
 
 class MainTableViewController: UITableViewController {
     
@@ -90,25 +91,10 @@ class MainTableViewController: UITableViewController {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cellsFromMainTable", for: indexPath)
         
         //Load Image from Url
+        var imageV = UIImageView()
+        imageV = cell.viewWithTag(1) as! UIImageView
+        imageV.sd_setImage(with: URL(string: (self.resultsOfFound?[indexPath.row].urlOfImage)!), placeholderImage: UIImage(named: "NewsImg"))
         
-        if self.resultsOfFound?[indexPath.row].urlOfImage != String([]) {
-            if let pictureURL = URL(string: (self.resultsOfFound?[indexPath.row].urlOfImage)!) {
-                if let pictureData = NSData(contentsOf: pictureURL as URL) {
-                    let NewsPicture = UIImage(data: pictureData as Data)
-                    var imageV = UIImageView()
-                    imageV = cell.viewWithTag(1) as! UIImageView
-                    imageV.image = NewsPicture
-                } else {
-                    var imageV = UIImageView()
-                    imageV = cell.viewWithTag(1) as! UIImageView
-                    imageV.image = UIImage(named: "NewsImg")
-                }
-            }
-        } else {
-            var imageV = UIImageView()
-            imageV = cell.viewWithTag(1) as! UIImageView
-            imageV.image = UIImage(named: "NewsImg")
-        }
         //Load Titles from titleOf
         let titleLabel = cell.viewWithTag(3) as! UILabel
         titleLabel.text = self.resultsOfFound?[indexPath.row].titleOf

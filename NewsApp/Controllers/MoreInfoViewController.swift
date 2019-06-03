@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SDWebImage
 
 class MoreInfoViewController: UIViewController {
     
@@ -31,27 +32,12 @@ class MoreInfoViewController: UIViewController {
         publishedDate.text = published
         descritionOfNews.text = descriptionOf
         urlOfNews.text = urlOf
-        loadImage(url: imageUrl)
-        
+        imageFromUrl.sd_setImage(with: URL(string: imageUrl), placeholderImage: UIImage(named: "NewsImg"))
         //Кликабельность ссылки через GestureRecognizer
         let tap = UITapGestureRecognizer(target: self, action: #selector(self.onClicLabel(sender:)))
         urlOfNews.isUserInteractionEnabled = true
         urlOfNews.addGestureRecognizer(tap)
         
-    }
-
-    func loadImage(url: String?) {
-        if url != "NewsImg" {
-            if let pictureURL = URL(string: url!) {
-                if let pictureData = NSData(contentsOf: pictureURL as URL) {
-                    imageFromUrl.image = UIImage(data: pictureData as Data)
-                }
-            } else {
-                imageFromUrl.image = UIImage(named: "NewsImg")
-            }
-        } else {
-            imageFromUrl.image = UIImage(named: "NewsImg")
-        }
     }
     
     //Кликабельность ссылки и переход в сафари

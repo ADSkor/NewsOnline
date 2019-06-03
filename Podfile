@@ -10,5 +10,6 @@ pod 'Alamofire'
 pod 'SwiftyJSON'
 pod 'SVProgressHUD'
 pod 'RealmSwift'
+pod 'SDWebImage'
 
 end
